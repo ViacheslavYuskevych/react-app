@@ -58,18 +58,6 @@
   padding: 5px;
 }
 
-.footerBtn {
-  padding: 3px;
-  background-color: beige;
-  color: navy;
-  margin-right: 5px;
-  font-size: 13px;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
 .addBtn {
   position: fixed;
   right: 20px;

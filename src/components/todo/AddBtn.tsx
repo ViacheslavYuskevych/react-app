@@ -3,6 +3,7 @@ import { IconContext } from 'react-icons';
 import { MdLibraryAdd } from 'react-icons/md';
 
 import styles from '../../styles/todo.module.css';
+import { IFormValue } from './AddForm';
 import AddModal from './AddModal';
 
 function AddTodoBtn({ onAdd }: IProps) {
@@ -16,6 +17,11 @@ function AddTodoBtn({ onAdd }: IProps) {
     setModalShown(false);
   };
 
+  const handleAdd = (value: IFormValue) => {
+    onAdd(value);
+    close();
+  };
+
   return (
     <>
       <button onClick={show} className={styles.addBtn}>
@@ -24,7 +30,7 @@ function AddTodoBtn({ onAdd }: IProps) {
         </IconContext.Provider>
       </button>
 
-      {isModalShown && <AddModal onAdd={onAdd} onClose={close} />}
+      {isModalShown && <AddModal onAdd={handleAdd} onClose={close} />}
     </>
   );
 }
@@ -32,8 +38,5 @@ function AddTodoBtn({ onAdd }: IProps) {
 export default AddTodoBtn;
 
 interface IProps {
-  readonly onAdd: () => void;
-}
-function setState() {
-  throw new Error('Function not implemented.');
+  readonly onAdd: (value: IFormValue) => void;
 }

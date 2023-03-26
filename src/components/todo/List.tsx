@@ -5,6 +5,7 @@ import { ITodo } from '../../models/todo';
 import TodoCard from './Card';
 import styles from '../../styles/todo.module.css';
 import AddTodoBtn from './AddBtn';
+import { IFormValue } from './AddForm';
 
 function TodoList() {
   const [todoList, setTodoList] = useState(MOCK_TODO_LIST);
@@ -25,8 +26,8 @@ function TodoList() {
     );
   };
 
-  const onAdd = () => {
-    console.log('on add !');
+  const onAdd = ({ description, isDone, title }: IFormValue) => {
+    setTodoList([...todoList, { description, isDone, title, id: uuidv4() }]);
   };
 
   return (

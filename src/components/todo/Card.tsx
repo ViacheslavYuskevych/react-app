@@ -2,6 +2,7 @@ import { IconContext } from 'react-icons';
 import { MdAccessTime, MdDoneOutline } from 'react-icons/md';
 
 import { ITodo } from '../../models/todo';
+import Button from '../../shared/components/Btn';
 import styles from '../../styles/todo.module.css';
 
 function TodoCard({ todo, onEdit, onRemove, onToggleStatus }: IProps) {
@@ -32,20 +33,17 @@ function TodoCard({ todo, onEdit, onRemove, onToggleStatus }: IProps) {
       </div>
 
       <div className={styles.footer}>
-        <button className={styles.footerBtn} onClick={() => onEdit(todo)}>
+        <Button onClick={() => onEdit(todo)} classNames={['mr-1']}>
           Edit
-        </button>
+        </Button>
 
-        <button className={styles.footerBtn} onClick={() => onRemove(todo)}>
+        <Button onClick={() => onRemove(todo)} classNames={['mr-1']}>
           Remove
-        </button>
+        </Button>
 
-        <button
-          className={styles.footerBtn}
-          onClick={() => onToggleStatus(todo)}
-        >
+        <Button onClick={() => onToggleStatus(todo)} classNames={['mr-1']}>
           Toggle status
-        </button>
+        </Button>
       </div>
     </div>
   );
