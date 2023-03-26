@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ITodo } from '../../models/todo';
 import TodoCard from './Card';
 import styles from '../../styles/todo.module.css';
+import AddTodoBtn from './AddBtn';
 
 function TodoList() {
   const [todoList, setTodoList] = useState(MOCK_TODO_LIST);
@@ -24,6 +25,10 @@ function TodoList() {
     );
   };
 
+  const onAdd = () => {
+    console.log('on add !');
+  };
+
   return (
     <div className={styles.list}>
       {todoList.map((todo) => (
@@ -37,6 +42,8 @@ function TodoList() {
           />
         </div>
       ))}
+
+      <AddTodoBtn onClick={onAdd}></AddTodoBtn>
     </div>
   );
 }

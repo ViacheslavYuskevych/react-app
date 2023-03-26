@@ -1,0 +1,35 @@
+.backdrop {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(deepskyblue, 0.5);
+  z-index: 1000;
+  padding: 15px;
+}
+
+.container {
+  max-width: 100%;
+  max-height: 100%;
+  width: 500px;
+  border: 2px solid black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: navy;
+  border-bottom: 2px solid black;
+}
+
+.body {
+  padding: 5px;
+  overflow: auto;
+}

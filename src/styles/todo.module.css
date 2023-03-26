@@ -69,3 +69,14 @@
   outline: none;
   cursor: pointer;
 }
+
+.addBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
