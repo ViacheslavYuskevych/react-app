@@ -43,7 +43,7 @@ function TodoList() {
         </div>
       ))}
 
-      <AddTodoBtn onClick={onAdd}></AddTodoBtn>
+      <AddTodoBtn onAdd={onAdd}></AddTodoBtn>
     </div>
   );
 }

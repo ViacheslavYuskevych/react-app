@@ -1,33 +1,38 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useRef } from 'react';
 
 import styles from '../../styles/shared/modal.module.css';
 
-function Modal({ body: Body, title, onClose }: IProps) {
-  const onBackdropClick = (e: SyntheticEvent) => {
-    console.log(e);
+function Modal({ children: body, title, onClose }: IProps) {
+  const modalElement = useRef<HTMLDivElement>(null);
 
-    onClose();
+  const onBackdropClick = (e: SyntheticEvent) => {
+    const modalRef = modalElement.current as HTMLDivElement;
+    const targetRef = e.target as HTMLDivElement;
+
+    if (!modalRef.contains(targetRef)) onClose();
   };
 
   return (
-    <div className={styles.backdrop} onClick={(e) => onBackdropClick(e)}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h4>{title}</h4>
-        </div>
+    <>
+      <div className={styles.backdrop}></div>
 
-        <div className={styles.body}>
-          <Body></Body>
+      <div className={styles.container} onClick={(e) => onBackdropClick(e)}>
+        <div className={styles.modal} ref={modalElement}>
+          <div className={styles.header}>
+            <h4 className={styles.headerTitle}>{title}</h4>
+          </div>
+
+          <div className={styles.body}>{body}</div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default Modal;
 
 interface IProps {
-  body: React.FC;
+  children: JSX.Element;
   title: string;
   onClose: () => void;
 }
