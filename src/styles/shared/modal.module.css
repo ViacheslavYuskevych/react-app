@@ -31,11 +31,15 @@
   background-color: beige;
 }
 
+.formModal {
+  width: 300px;
+}
+
 .header {
   padding: 5px;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   background-color: navy;
   color: beige;
   border-bottom: 2px solid black;
@@ -43,9 +47,22 @@
 
 .headerTitle {
   margin: 0;
+  font-size: 15px;
+}
+
+.headerCloseBtn {
+  cursor: pointer;
 }
 
 .body {
   padding: 5px;
   overflow: auto;
+}
+
+.footer {
+  border-top: 2px solid black;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }

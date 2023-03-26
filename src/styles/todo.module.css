@@ -80,3 +80,25 @@
   border: none;
   outline: none;
 }
+
+.addForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.addFormControl {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  align-items: start;
+}
+
+.addFormControlLabel {
+  margin-bottom: 5px;
+  display: block;
+  width: 150px;
+}
+
+.addFormControlLabelSpan {
+  font-size: 14px;
+}
