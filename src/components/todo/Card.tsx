@@ -4,7 +4,9 @@ import { MdAccessTime, MdDoneOutline } from 'react-icons/md';
 import { ITodo } from '../../models/todo';
 import styles from '../../styles/todo.module.css';
 
-function TodoCard({ todo: { description, isDone, title } }: IProps) {
+function TodoCard({ todo, onEdit, onRemove, onToggleStatus }: IProps) {
+  const { description, isDone, title } = todo;
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -30,9 +32,20 @@ function TodoCard({ todo: { description, isDone, title } }: IProps) {
       </div>
 
       <div className={styles.footer}>
-        <button className={styles.footerBtn}>Edit</button>
-        <button className={styles.footerBtn}>Remove</button>
-        <button className={styles.footerBtn}>Toggle status</button>
+        <button className={styles.footerBtn} onClick={() => onEdit(todo)}>
+          Edit
+        </button>
+
+        <button className={styles.footerBtn} onClick={() => onRemove(todo)}>
+          Remove
+        </button>
+
+        <button
+          className={styles.footerBtn}
+          onClick={() => onToggleStatus(todo)}
+        >
+          Toggle status
+        </button>
       </div>
     </div>
   );
@@ -40,6 +53,9 @@ function TodoCard({ todo: { description, isDone, title } }: IProps) {
 
 interface IProps {
   todo: ITodo;
+  onRemove: (todo: ITodo) => void;
+  onToggleStatus: (todo: ITodo) => void;
+  onEdit: (todo: ITodo) => void;
 }
 
 export default TodoCard;
