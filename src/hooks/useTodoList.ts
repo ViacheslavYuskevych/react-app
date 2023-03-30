@@ -1,16 +1,24 @@
 import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { sortBy } from 'lodash';
 
 import { IFormValue } from '../components/todo/AddForm';
+import { SortEnum } from '../components/todo/Filter';
 import { ITodo } from '../models/todo';
 
 const useTodoList = (): IUseTodoListResponse => {
   const [todoList, setTodoList] = useState(MOCK_TODO_LIST);
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState(SortEnum.NONE);
 
   console.log('useTodoList hook');
 
   const filteredTodoList = useTodoListFilter({ search, todoList });
+
+  const filteredAndSortedTodoList = useTodoListSort({
+    sort,
+    todoList: filteredTodoList,
+  });
 
   const onRemove = ({ id }: ITodo) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
@@ -33,13 +41,15 @@ const useTodoList = (): IUseTodoListResponse => {
   };
 
   return {
-    todoList: filteredTodoList,
+    todoList: filteredAndSortedTodoList,
     onRemove,
     onAdd,
     onEdit,
     onToggleStatus,
     search,
     setSearch,
+    setSort,
+    sort,
   };
 };
 
@@ -62,6 +72,29 @@ const useTodoListFilter = ({
   }, [todoList, search]);
 };
 
+const useTodoListSort = ({
+  sort,
+  todoList,
+}: {
+  todoList: ITodo[];
+  sort: SortEnum;
+}): ITodo[] => {
+  return useMemo(() => {
+    console.log('useMemo useTodoListSort');
+
+    switch (sort) {
+      case SortEnum.ASC:
+        return sortBy(todoList, ({ title }) => title.toLowerCase());
+
+      case SortEnum.DESC:
+        return sortBy(todoList, ({ title }) => title.toLowerCase()).reverse();
+
+      default:
+        return todoList;
+    }
+  }, [todoList, sort]);
+};
+
 export default useTodoList;
 
 interface IUseTodoListResponse {
@@ -72,6 +105,8 @@ interface IUseTodoListResponse {
   onToggleStatus: (todo: ITodo) => void;
   search: string;
   setSearch: (search: string) => void;
+  sort: SortEnum;
+  setSort: (search: SortEnum) => void;
 }
 
 const MOCK_TODO_LIST: ITodo[] = [

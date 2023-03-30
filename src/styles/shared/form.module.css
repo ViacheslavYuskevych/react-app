@@ -18,3 +18,7 @@
 .formControlLabelSpan {
   font-size: 14px;
 }
+
+.smallFormControl {
+  height: 30px;
+}

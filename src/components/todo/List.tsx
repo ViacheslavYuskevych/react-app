@@ -2,7 +2,7 @@ import TodoCard from './Card';
 import styles from '../../styles/todo.module.css';
 import AddTodoBtn from './AddBtn';
 import useTodoList from '../../hooks/useTodoList';
-import TodoFilter from './Filter';
+import TodoFilter, { IProps as ITodoFilterProps } from './Filter';
 
 function TodoList() {
   console.log('TodoList render');
@@ -15,11 +15,20 @@ function TodoList() {
     todoList,
     search,
     setSearch,
+    setSort,
+    sort,
   } = useTodoList();
+
+  const todoListFilterProps: ITodoFilterProps = {
+    search,
+    setSearch,
+    setSort,
+    sort,
+  };
 
   return (
     <div className='w-100'>
-      <TodoFilter search={search} setSearch={setSearch}></TodoFilter>
+      <TodoFilter {...todoListFilterProps}></TodoFilter>
 
       <div className={styles.list}>
         {todoList.map((todo) => (
