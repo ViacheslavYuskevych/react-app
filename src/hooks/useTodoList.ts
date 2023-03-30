@@ -10,16 +10,7 @@ const useTodoList = (): IUseTodoListResponse => {
 
   console.log('useTodoList hook');
 
-  const filteredTodoList = useMemo(
-    () =>
-      todoList.filter(
-        ({ description, title }) =>
-          !search ||
-          description.toLowerCase().includes(search.toLowerCase()) ||
-          title.toLowerCase().includes(search.toLowerCase())
-      ),
-    [todoList, search]
-  );
+  const filteredTodoList = useTodoListFilter({ search, todoList });
 
   const onRemove = ({ id }: ITodo) => {
     setTodoList(todoList.filter((todo) => todo.id !== id));
@@ -50,6 +41,25 @@ const useTodoList = (): IUseTodoListResponse => {
     search,
     setSearch,
   };
+};
+
+const useTodoListFilter = ({
+  search,
+  todoList,
+}: {
+  todoList: ITodo[];
+  search: string;
+}): ITodo[] => {
+  return useMemo(() => {
+    console.log('useMemo useTodoListFilter');
+
+    return todoList.filter(
+      ({ description, title }) =>
+        !search ||
+        description.toLowerCase().includes(search.toLowerCase()) ||
+        title.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [todoList, search]);
 };
 
 export default useTodoList;

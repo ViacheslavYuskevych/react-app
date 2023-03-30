@@ -70,23 +70,17 @@
 }
 
 .addForm {
-  display: flex;
-  flex-direction: column;
+  composes: columnForm from './shared/form.module.css';
 }
 
 .addFormControl {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
-  align-items: start;
+  composes: columnFormControl from './shared/form.module.css';
 }
 
 .addFormControlLabel {
-  margin-bottom: 5px;
-  display: block;
-  width: 150px;
+  composes: columnFormControlLabel from './shared/form.module.css';
 }
 
 .addFormControlLabelSpan {
-  font-size: 14px;
+  composes: formControlLabelSpan from './shared/form.module.css';
 }
