@@ -63,7 +63,9 @@ function TodoFilter({ search, setSearch, setSort, sort }: IProps) {
           className={sharedStyles.smallFormControl}
         >
           {Object.values(SortEnum).map((value) => (
-            <option value={value}>{value}</option>
+            <option value={value} key={value}>
+              {value}
+            </option>
           ))}
         </select>
       </div>

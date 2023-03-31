@@ -1,15 +1,20 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { sortBy } from 'lodash';
 
 import { IFormValue } from '../components/todo/AddForm';
 import { SortEnum } from '../components/todo/Filter';
 import { ITodo } from '../models/todo';
+import TodoApi from '../services/todo-api';
 
 const useTodoList = (): IUseTodoListResponse => {
-  const [todoList, setTodoList] = useState(MOCK_TODO_LIST);
+  const [todoList, setTodoList] = useState<ITodo[]>([]);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState(SortEnum.NONE);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState<string>('');
+
+  useFetchTodoList({ setError, setLoading, setTodoList });
 
   console.log('useTodoList hook');
 
@@ -50,6 +55,8 @@ const useTodoList = (): IUseTodoListResponse => {
     setSearch,
     setSort,
     sort,
+    error,
+    isLoading,
   };
 };
 
@@ -95,6 +102,38 @@ const useTodoListSort = ({
   }, [todoList, sort]);
 };
 
+const useFetchTodoList = ({
+  setLoading,
+  setError,
+  setTodoList,
+}: {
+  setLoading: (isLoading: boolean) => void;
+  setError: (error: string) => void;
+  setTodoList: (todoList: ITodo[]) => void;
+}) => {
+  console.log('useFetchTodoList');
+
+  const fetch = async () => {
+    console.log('useFetchTodoList useEffect');
+
+    try {
+      const { data: todoList } = await TodoApi.get();
+
+      setTodoList(todoList);
+    } catch (error: any) {
+      setError(error?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetch();
+  }, []);
+};
+
 export default useTodoList;
 
 interface IUseTodoListResponse {
@@ -107,6 +146,8 @@ interface IUseTodoListResponse {
   setSearch: (search: string) => void;
   sort: SortEnum;
   setSort: (search: SortEnum) => void;
+  isLoading: boolean;
+  error: string;
 }
 
 const MOCK_TODO_LIST: ITodo[] = [

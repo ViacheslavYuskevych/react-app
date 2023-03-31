@@ -3,6 +3,7 @@ import styles from '../../styles/todo.module.css';
 import AddTodoBtn from './AddBtn';
 import useTodoList from '../../hooks/useTodoList';
 import TodoFilter, { IProps as ITodoFilterProps } from './Filter';
+import { useEffect } from 'react';
 
 function TodoList() {
   console.log('TodoList render');
@@ -17,6 +18,8 @@ function TodoList() {
     setSearch,
     setSort,
     sort,
+    error,
+    isLoading,
   } = useTodoList();
 
   const todoListFilterProps: ITodoFilterProps = {
@@ -28,23 +31,31 @@ function TodoList() {
 
   return (
     <div className='w-100'>
-      <TodoFilter {...todoListFilterProps}></TodoFilter>
+      {error && <span>{error}</span>}
 
-      <div className={styles.list}>
-        {todoList.map((todo) => (
-          <div className={styles.listItem} key={todo.id}>
-            <TodoCard
-              todo={todo}
-              onRemove={onRemove}
-              onEdit={onEdit}
-              onToggleStatus={onToggleStatus}
-              key={todo.id}
-            />
+      {isLoading ? (
+        'LOADING....'
+      ) : (
+        <>
+          <TodoFilter {...todoListFilterProps}></TodoFilter>
+
+          <div className={styles.list}>
+            {todoList.map((todo) => (
+              <div className={styles.listItem} key={todo.id}>
+                <TodoCard
+                  todo={todo}
+                  onRemove={onRemove}
+                  onEdit={onEdit}
+                  onToggleStatus={onToggleStatus}
+                  key={todo.id}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <AddTodoBtn onAdd={onAdd}></AddTodoBtn>
+          <AddTodoBtn onAdd={onAdd}></AddTodoBtn>
+        </>
+      )}
     </div>
   );
 }
