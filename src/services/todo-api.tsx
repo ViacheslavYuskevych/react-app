@@ -12,6 +12,18 @@ class TodoApi {
   static get() {
     return axios.get<ITodo[]>(this._baseUrl);
   }
+
+  static add(dto: Omit<ITodo, 'id'>) {
+    return axios.post<ITodo>(this._baseUrl, dto);
+  }
+
+  static update(id: string, dto: Partial<ITodo>) {
+    return axios.patch<ITodo>(`${this._baseUrl}/${id}`, dto);
+  }
+
+  static remove(id: string) {
+    return axios.delete<unknown>(`${this._baseUrl}/${id}`);
+  }
 }
 
 export default TodoApi;

@@ -25,24 +25,54 @@ const useTodoList = (): IUseTodoListResponse => {
     todoList: filteredTodoList,
   });
 
-  const onRemove = ({ id }: ITodo) => {
-    setTodoList(todoList.filter((todo) => todo.id !== id));
+  const onRemove = async ({ id }: ITodo) => {
+    setLoading(true);
+
+    try {
+      await TodoApi.remove(id);
+
+      setTodoList(todoList.filter((todo) => todo.id !== id));
+    } catch (error: any) {
+      setError(error?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onEdit = (todo: ITodo) => {
     /* TODO */
   };
 
-  const onToggleStatus = ({ id, isDone }: ITodo) => {
-    setTodoList(
-      todoList.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !isDone } : todo
-      )
-    );
+  const onToggleStatus = async ({ id, isDone }: ITodo) => {
+    setLoading(true);
+
+    try {
+      await TodoApi.update(id, { isDone });
+
+      setTodoList(
+        todoList.map((todo) =>
+          todo.id === id ? { ...todo, isDone: !isDone } : todo
+        )
+      );
+    } catch (error: any) {
+      setError(error?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const onAdd = ({ description, isDone, title }: IFormValue) => {
-    setTodoList([...todoList, { description, isDone, title, id: uuidv4() }]);
+  const onAdd = async (dto: IFormValue) => {
+    setLoading(true);
+
+    try {
+      const { data: todo } = await TodoApi.add(dto);
+
+      setTodoList([...todoList, todo]);
+    } catch (error: any) {
+      setError(error?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
@@ -111,10 +141,8 @@ const useFetchTodoList = ({
   setError: (error: string) => void;
   setTodoList: (todoList: ITodo[]) => void;
 }) => {
-  console.log('useFetchTodoList');
-
   const fetch = async () => {
-    console.log('useFetchTodoList useEffect');
+    console.log('useFetchTodoList ');
 
     try {
       const { data: todoList } = await TodoApi.get();
