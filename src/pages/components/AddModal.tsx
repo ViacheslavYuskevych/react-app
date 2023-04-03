@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import Modal from '../../shared/components/Modal';
-import styles from '../../styles/shared/modal.module.css';
 import Button from '../../shared/components/Btn';
+import styles from '../../styles/shared/modal.module.css';
 import AddForm, { IFormValue } from './AddForm';
 
 function AddModal({ onAdd, onClose }: IProps) {

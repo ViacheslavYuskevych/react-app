@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { sortBy } from 'lodash';
 
-import { IFormValue } from '../components/todo/AddForm';
-import { SortEnum } from '../components/todo/Filter';
+import { IFormValue } from '../pages/components/AddForm';
+import { SortEnum } from '../pages/components/Filter';
 import { ITodo } from '../models/todo';
 import TodoApi from '../services/todo-api';
 

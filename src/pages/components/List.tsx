@@ -3,7 +3,6 @@ import styles from '../../styles/todo.module.css';
 import AddTodoBtn from './AddBtn';
 import useTodoList from '../../hooks/useTodoList';
 import TodoFilter, { IProps as ITodoFilterProps } from './Filter';
-import { useEffect } from 'react';
 
 function TodoList() {
   console.log('TodoList render');
